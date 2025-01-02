@@ -17,9 +17,9 @@ jobs:
 
       - name: Fetch GitHub user data
         run: |
-          curl -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" https://api.github.com/users/DmutroZel > data.json
+          curl -H "Authorization: token ${{ secrets.SUPERGITHUB_TOKEN }}" https://api.github.com/users/DmutroZel > data.json
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Використовує GitHub токен для доступу до API
+          GITHUB_TOKEN: ${{ secrets.SUPERGITHUB_TOKEN }}  # Використовує GitHub токен для доступу до API
           
       - name: Commit and push data update
         run: |
@@ -27,4 +27,5 @@ jobs:
           git commit -m "Update GitHub data"
           git push
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.SUPERGITHUB_TOKEN }}  # Використовує GitHub токен для доступу до API
+
