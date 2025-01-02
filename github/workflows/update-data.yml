@@ -1,0 +1,30 @@
+name: Update GitHub Info
+
+on:
+  schedule:
+    - cron: '0 * * * *'  # Це викликає workflow щогодини
+  workflow_dispatch:  # Це дозволяє вручну запускати workflow через GitHub UI
+
+jobs:
+  update:
+    runs-on: ubuntu-latest  # Ми будемо використовувати Ubuntu для запуску дій
+
+    steps:
+    # Крок 1: Checkout коду
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    # Крок 2: Отримання інформації з GitHub API
+    - name: Fetch GitHub info
+      run: |
+        curl -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+        "https://api.github.com/users/your-username" > ./github_data.json
+
+    # Крок 3: Зберігання даних в репозиторій
+    - name: Commit and push changes
+      run: |
+        git config --global user.email "youremail@example.com"
+        git config --global user.name "Your Name"
+        git add github_data.json
+        git commit -m "Update GitHub user info"
+        git push
