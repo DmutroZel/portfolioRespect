@@ -1,0 +1,30 @@
+name: Update GitHub Data
+
+on:
+  schedule:
+    - cron: '0 * * * *'   # Це означає, що робота буде запускатись кожну годину.
+  push:
+    branches:
+      - main  # Запускатиметься також, коли ви робите пуш в гілку `main`
+
+jobs:
+  update:
+    runs-on: ubuntu-latest  # Вибір операційної системи для виконання
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2  # Це перевірить ваш репозиторій
+
+      - name: Fetch GitHub user data
+        run: |
+          curl -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" https://api.github.com/users/DmutroZel > data.json
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Використовує GitHub токен для доступу до API
+          
+      - name: Commit and push data update
+        run: |
+          git add data.json
+          git commit -m "Update GitHub data"
+          git push
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
