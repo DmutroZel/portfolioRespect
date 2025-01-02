@@ -1,4 +1,4 @@
-const TOKEN = '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';
+const TOKEN = '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';
 const username = 'DmutroZel';
 const repositories = ['compiler', 'catchers-game-', 'Weather-Forecast', 'CoffeeMachine', 'JavaScriptShop'];
 
